@@ -1,0 +1,729 @@
+﻿@using Microsoft.AspNet.Identity
+
+    <!DOCTYPE html>
+    <html>
+    <head>
+        <title>Pocket Gaurd</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta charset="UTF-8" />
+
+        <link rel="icon" type="image/ico" href="~/assets/images/favicon.ico" />
+        <!-- Bootstrap -->
+        <link href="~/assets/css/vendor/bootstrap/bootstrap.min.css" rel="stylesheet">
+        <link href="http://maxcdn.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css" rel="stylesheet">
+        <link rel="stylesheet" href="~/assets/css/vendor/animate/animate.min.css">
+        <link type="text/css" rel="stylesheet" media="all" href="~/assets/js/vendor/mmenu/css/jquery.mmenu.all.css" />
+        <link rel="stylesheet" href="~/assets/js/vendor/videobackground/css/jquery.videobackground.css">
+        <link rel="stylesheet" href="~/assets/css/vendor/bootstrap-checkbox.css">
+        <link rel="stylesheet" href="~/assets/css/vendor/bootstrap/bootstrap-dropdown-multilevel.css">
+
+        <link rel="stylesheet" href="~/assets/js/vendor/rickshaw/css/rickshaw.min.css">
+        <link rel="stylesheet" href="~/assets/js/vendor/morris/css/morris.css">
+        <link rel="stylesheet" href="~/assets/js/vendor/tabdrop/css/tabdrop.css">
+        <link rel="stylesheet" href="~/assets/js/vendor/summernote/css/summernote.css">
+        <link rel="stylesheet" href="~/assets/js/vendor/summernote/css/summernote-bs3.css">
+        <link rel="stylesheet" href="~/assets/js/vendor/chosen/css/chosen.min.css">
+        <link rel="stylesheet" href="~/assets/js/vendor/chosen/css/chosen-bootstrap.css">
+        <link rel="stylesheet" href="~/assets/js/vendor/owl-carousel/css/owl.carousel.css">
+        <link rel="stylesheet" href="~/assets/js/vendor/owl-carousel/css/owl.theme.css">
+
+        <link href="~/assets/css/minimal.css" rel="stylesheet">
+
+        <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+        <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+        <!--[if lt IE 9]>
+          <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+          <script src="https://oss.maxcdn.com/libs/respond.js/1.3.0/respond.min.js"></script>
+        <![endif]-->
+    </head>
+
+    <body class="bg-1">
+        <form style="height:100%; overflow: hidden;">
+            <!-- Preloader -->
+            <div class="mask"><div id="loader"></div></div>
+            <!--/Preloader -->
+            <!-- Wrap all page content here -->
+            <div id="wrap">
+
+
+                <!-- Make page fluid -->
+                <div class="row">
+
+
+                    <!-- Fixed navbar -->
+                    <div class="navbar navbar-default navbar-fixed-top navbar-transparent-black mm-fixed-top collapsed" role="navigation" id="navbar">
+
+
+                        <!-- Branding -->
+                        <div class="navbar-header col-md-2">
+                            <a class="navbar-brand" href="javascript:void(0);">
+                                <strong>POCKET </strong>GAURD
+                            </a>
+                            <div class="sidebar-collapse">
+                                <a href="#">
+                                    <i class="fa fa-bars"></i>
+                                </a>
+                            </div>
+                        </div>
+                        <!-- Branding end -->
+                        <!-- .nav-collapse -->
+                        <div class="navbar-collapse">
+
+                            <!-- Page refresh -->
+                            <ul class="nav navbar-nav refresh">
+                                <li class="divided">
+                                    <a href="#" class="page-refresh"><i class="fa fa-refresh"></i></a>
+                                </li>
+                            </ul>
+                            <!-- /Page refresh -->
+                            <!-- Search -->
+                            <div class="search" id="main-search">
+                                <i class="fa fa-search"></i> <input type="text" placeholder="Search...">
+                            </div>
+                            <!-- Search end -->
+                            <!-- Quick Actions -->
+                            <ul class="nav navbar-nav quick-actions">
+
+                                <li class="dropdown divided user" id="current-user">
+                                    <div class="profile-photo">
+                                        <img src="~/assets/images/profile-photo.jpg" />
+                                    </div>
+                                    <a class="dropdown-toggle options" data-toggle="dropdown" href="#">
+                                        Welcome @User.Identity.Name <i class="fa fa-caret-down"></i>
+                                    </a>
+
+                                    <ul class="dropdown-menu arrow settings">
+                                        @if (Request.IsAuthenticated)
+                                        {
+                                            using (Html.BeginForm("LogOff", "Account", FormMethod.Post, new { id = "logoutForm", @class = "navbar-right" }))
+                                            {
+                                                @Html.AntiForgeryToken()
+                                                <li>
+                                                    <a href="javascript:(0);"><i class="fa fa-user"></i> @User.Identity.Name</a>
+
+                                                </li>
+
+                                                <li class="divider"></li>
+
+                                                <li>
+                                                    <a href="@Url.Action("Index", "Manage")"><i class="fa fa-gear"></i> My Account</a>
+                                                </li>
+
+                                                <li>
+                                                    <a href="javascript:document.getElementById('logoutForm').submit()"><i class="fa fa-calendar"></i> Logout</a>
+                                                </li>
+
+                                                <li>
+                                                    <a href="javascript:(0);"><i class="fa fa-envelope"></i> Messages <span class="badge badge-red" id="user-inbox">0</span></a>
+                                                </li>
+                                            }
+                                        }
+                                    </ul>
+                                </li>
+                                <li>
+                                    <a href="#mmenu"><i class="fa fa-comments"></i></a>
+                                </li>
+                            </ul>
+                            <!-- /Quick Actions -->
+                            <!-- Sidebar -->
+                            <ul class="nav navbar-nav side-nav" id="sidebar">
+
+                                <li class="collapsed-content">
+                                    <ul>
+                                        <li class="search"><!-- Collapsed search pasting here at 768px --></li>
+                                    </ul>
+                                </li>
+
+                                <li class="navigation" id="navigation">
+                                    <a href="#" class="sidebar-toggle" data-toggle="#navigation">Navigation <i class="fa fa-angle-up"></i></a>
+
+                                    <ul class="menu">
+
+                                        <li class="active">
+                                            <a href="@Url.Action("Index", "Home")">
+                                                <i class="fa fa-tachometer"></i> Dashboard
+                                                @*<span class="badge badge-red">1</span>*@
+                                            </a>
+                                        </li>
+
+                                        <li class="dropdown">
+                                            <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                                                <i class="fa fa-heart"></i> Household <b class="fa fa-plus dropdown-plus"></b>
+                                            </a>
+                                            <ul class="dropdown-menu">
+                                                <li>
+                                                    <a href="@Url.Action("Index", "Households")">
+                                                        <i class="fa fa-caret-right"></i> My Household
+                                                    </a>
+                                                </li>
+                                                <li>
+                                                    <a href="@Url.Action("Index", "BankAccounts")">
+                                                        <i class="fa fa-caret-right"></i> House Accounts
+                                                    </a>
+                                                </li>
+                                                <li>
+                                                    <a href="@Url.Action("Index", "Budgets")">
+                                                        <i class="fa fa-caret-right"></i> House Budgets
+                                                    </a>
+                                                </li>
+                                                <li>
+                                                    <a href="@Url.Action("Index", "Transactions")">
+                                                        <i class="fa fa-caret-right"></i> House Transaction
+                                                    </a>
+                                                </li>
+                                            </ul>
+                                        </li>
+                                    </ul>
+                                </li>
+
+                                <li class="settings" id="general-settings">
+                                    <a href="#" class="sidebar-toggle underline" data-toggle="#general-settings">User Settings <i class="fa fa-angle-up"></i></a>
+
+                                    <ul class="menu">
+
+                                        <li class="active">
+                                            <a href="javascript:void(0);">
+                                                <i class="fa fa-users"></i> Member(s) Profile
+                                            </a>
+                                        </li>
+
+                                        <li class="dropdown">
+                                            <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                                                <i class="fa fa-user"></i> User Options <b class="fa fa-plus dropdown-plus"></b>
+                                            </a>
+                                            <ul class="dropdown-menu">
+                                                @if (Request.IsAuthenticated)
+                                                {
+                                                    using (Html.BeginForm("LogOff", "Account", FormMethod.Post, new { id = "logoutForm", @class = "navbar-right" }))
+                                                    {
+                                                        @Html.AntiForgeryToken()
+                                                        <li>
+                                                            <a href="@Url.Action("Index", "Manage")">
+                                                                <i class="fa fa-caret-right"></i> Update Profile
+                                                            </a>
+                                                        </li>
+                                                        <li>
+                                                            <a href="@Url.Action("ForgotPassword", "Account")">
+                                                                <i class="fa fa-caret-right"></i> Forgot Password
+                                                            </a>
+                                                        </li>
+                                                        <li>
+                                                            <a href="javascript:document.getElementById('logoutForm').submit()">
+                                                                <i class="fa fa-caret-right"></i> Log Off
+                                                            </a>
+                                                        </li>
+                                                    }
+                                                }
+                                            </ul>
+                                        </li>
+                                    </ul>
+                                </li>
+                            </ul>
+                            <!-- Sidebar end -->
+
+                        </div>
+                        <!--/.nav-collapse -->
+
+                    </div>
+                    <!-- Fixed navbar end -->
+                    <!-- Page content -->
+                    <div id="content" class="col-md-12">
+
+
+
+
+                        <!-- page header -->
+                        <div class="pageheader">
+
+                            <h2>
+                                <i class="fa fa-calendar"></i> Welcome To Pocket Gaurd
+                                @*<span>// Place subtitle here...</span>*@
+                            </h2>
+
+                            <div class="breadcrumbs">
+                                <ol class="breadcrumb">
+                                    <li>You are here</li>
+                                    <li><a href="javascript:void(0);">Pocket Gaurd</a></li>
+                                    <li class="active">Welcome Board</li>
+                                </ol>
+                            </div>
+
+                        </div>
+                        <!-- /page header -->
+                        <!-- content main container -->
+                        <div class="main">
+
+                            <!-- row -->
+                            <div class="row">
+
+                                <!-- col 8 -->
+                                <div class="col-lg-12 col-md-12">
+                                    <!-- tile -->
+                                    <section class="tile transparent">
+
+                                        <!-- tile body -->
+                                        <div class="tile-body nopadding rounded-corners">
+
+                                            <div id="carousel-example-generic" class="carousel slide" data-ride="carousel">
+                                                <!-- Indicators -->
+                                                <ol class="carousel-indicators">
+                                                    <li data-target="#carousel-example-generic" data-slide-to="0" class="active"></li>
+                                                    <li data-target="#carousel-example-generic" data-slide-to="1"></li>
+                                                    <li data-target="#carousel-example-generic" data-slide-to="2"></li>
+                                                    <li data-target="#carousel-example-generic" data-slide-to="3"></li>
+                                                    <li data-target="#carousel-example-generic" data-slide-to="4"></li>
+                                                </ol>
+
+                                                <!-- Wrapper for slides -->
+                                                <div class="carousel-inner">
+                                                    <div class="item active">
+                                                        <img src="~/assets/images/carousel/financial-planning.jpg">
+                                                        <div class="carousel-caption">
+                                                            <h3>Planning to Open a New Business?</h3>
+                                                            <p>"Pocket Gaurd helps your monitor all household and/or business income/expenses..."</p>
+                                                        </div>
+                                                    </div>
+                                                    <div class="item">
+                                                        <img src="~/assets/images/carousel/34.jpg">
+                                                        <div class="carousel-caption">
+                                                            <h3>Looking to Save Up for that New House?</h3>
+                                                            <p>"Pocket Gaurd helps you budget your house expenses to save up for those needs and wants..."</p>
+                                                        </div>
+                                                    </div>
+                                                    <div class="item">
+                                                        <img src="~/assets/images/carousel/CR.jpg">
+                                                        <div class="carousel-caption">
+                                                            <h3>Expecting a New Addition to the Family?</h3>
+                                                            <p>"Pocket Gaurd lets you monitor all house members and their expenses..."</p>
+                                                        </div>
+                                                    </div>
+                                                    <div class="item">
+                                                        <img src="~/assets/images/carousel/Financial_Planning.jpg">
+                                                        <div class="carousel-caption">
+                                                            <h3>Wanting to Further your Education?</h3>
+                                                            <p>"Pocket Gaurd lets you know where your money is going at all times with all members..."</p>
+                                                        </div>
+                                                    </div>
+                                                    <div class="item">
+                                                        <img src="~/assets/images/carousel/landing-background.jpg">
+                                                        <div class="carousel-caption">
+                                                            <h3>Looking to Enjoy Retirement Comfortably?</h3>
+                                                            <p>"Pocket Gaurd wants to help you enjoy your well deserved retirement with no concerns..."</p>
+                                                        </div>
+                                                    </div>
+                                                </div>
+
+                                                <!-- Controls -->
+                                                <a class="left carousel-control" href="#carousel-example-generic" data-slide="prev">
+                                                    <i class="fa fa-chevron-left fa-lg left-side"></i>
+                                                </a>
+                                                <a class="right carousel-control" href="#carousel-example-generic" data-slide="next">
+                                                    <i class="fa fa-chevron-right fa-lg right-side"></i>
+                                                </a>
+                                            </div>
+                                        </div>
+                                        <!-- /tile body -->
+
+                                    </section>
+                                    <!-- /tile -->
+                                </div>
+                            </div>
+
+                            <div class="row">
+                                <div class="col-lg-4">
+                                    <!-- tile -->
+                                    <section class="tile transparent">
+
+                                        <!-- tile header -->
+                                        <div class="tile-header nopadding">
+                                            <div class="controls">
+                                                <a href="#" class="minimize"><i class="fa fa-chevron-down"></i></a>
+                                                <a href="#" class="refresh"><i class="fa fa-refresh"></i></a>
+                                            </div>
+                                        </div>
+                                        <!-- /tile header -->
+                                        <!-- tile body -->
+                                        <div class="tile-body color transparent-black rounded-corners nopadding">
+                                            <div id="owl-example" class="owl-carousel">
+
+                                                <div class="text-center">
+                                                    <h3><strong>Warren</strong> Buffet</h3>
+                                                    <img src="~/assets/images/wb.jpg" class="img-circle">
+                                                    <p class="bg-slategray">I made my billions by pinching every penny and using the Pocket Gaurd.</p>
+                                                </div>
+
+                                                <div class="text-center">
+                                                    <h3><strong>MC</strong> Hammer</h3>
+                                                    <img src="~/assets/images/mch.jpg" class="img-circle">
+                                                    <p class="bg-slategray">I couldn't of got back on my feet without the Pocket Gaurd. No more entourage for me!</p>
+                                                </div>
+
+                                                <div class="text-center">
+                                                    <h3><strong>Bill</strong> Gates</h3>
+                                                    <img src="~/assets/images/bg.jpg" class="img-circle">
+                                                    <p class="bg-slategray">I love saving money in an organized fashion with the Pocket Gaurd. I helps me stay ahead of the curve.</p>
+                                                </div>
+
+                                                <div class="text-center">
+                                                    <h3><strong>Mark</strong> Zuckerberg</h3>
+                                                    <img src="~/assets/images/mz.jpg" class="img-circle">
+                                                    <p class="bg-slategray">I had no need for a budget planner until Facebook came along. Now I know where all my money goes with the Pocket Gaurd.</p>
+                                                </div>
+
+                                            </div>
+                                        </div>
+                                        <!-- /tile body -->
+
+                                    </section>
+                                    <!-- /tile -->
+                                </div>
+
+                                <div class="col-lg-4">
+                                    <!-- tile -->
+                                    <section class="tile color transparent-black" id="HOH">
+
+                                        <!-- tile header -->
+                                        <div class="tile-header">
+                                            <h1><strong>House</strong> Options</h1>
+                                            <div class="controls">
+                                                <a href="#" class="minimize"><i class="fa fa-chevron-down"></i></a>
+                                                <a href="#" class="refresh"><i class="fa fa-refresh"></i></a>
+                                            </div>
+                                        </div>
+                                        <!-- /tile header -->
+                                        <!-- tile body -->
+                                        <div class="tile-body">
+
+                                            <div class="row">
+                                                <div class="form-group col-sm-12">
+                                                    <div class="btn-group btn-group-justified margin-bottom-20">
+                                                        <a class="btn btn-slategray" role="button" href="@Url.Action("Index", "Home", new { id = User.Identity.GetUserId() })">Dashboard</a>
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                            <div class="row">
+                                                <div class="form-group col-sm-12">
+                                                    <div class="btn-group btn-group-justified margin-bottom-20">
+                                                        <a class="btn btn-slategray" role="button" href="@Url.Action("Create", "Invitation")">Invite A New Member</a>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <!-- /tile body -->
+
+                                    </section>
+                                    <!-- /tile -->
+                                </div>
+
+                                <div class="col-lg-4">
+                                    <!-- tile -->
+                                    <section class="tile transparent">
+
+                                        <!-- tile header -->
+                                        <div class="tile-header nopadding">
+                                            <div class="controls">
+                                                <a href="#" class="minimize"><i class="fa fa-chevron-down"></i></a>
+                                                <a href="#" class="refresh"><i class="fa fa-refresh"></i></a>
+                                            </div>
+                                        </div>
+                                        <!-- /tile header -->
+                                        <!-- tile body -->
+                                        <div class="tile-body color transparent-black rounded-corners nopadding">
+                                            <div id="owl-example2" class="owl-carousel">
+
+                                                <div class="text-center">
+                                                    <h3><strong>Jeff</strong> Bezos</h3>
+                                                    <img src="~/assets/images/jb.jpg" class="img-circle">
+                                                    <p class="bg-slategray">My success with Amazon is due to my ability to save money. I couldn't do it without my Pocket Gaurd.</p>
+                                                </div>
+
+                                                <div class="text-center">
+                                                    <h3><strong>50</strong> Cent</h3>
+                                                    <img src="~/assets/images/50cent.jpg" class="img-circle">
+                                                    <p class="bg-slategray">I couldn't come up with another sports drink idea so I use the Pocket Gaurd to save all my money.</p>
+                                                </div>
+
+                                                <div class="text-center">
+                                                    <h3><strong>Stephen</strong> Baldwin</h3>
+                                                    <img src="~/assets/images/sb.jpg" class="img-circle">
+                                                    <p class="bg-slategray">My brother Alec recommended this Pocket Gaurd instead of a movie role and I love it!</p>
+                                                </div>
+
+                                                <div class="text-center">
+                                                    <h3><strong>Jason</strong> Twichell</h3>
+                                                    <img src="~/assets/images/jt.jpg" class="img-circle">
+                                                    <p class="bg-slategray">I'm already rich, but Pocket Gaurd helps me stay that way. I like the way it looks too!</p>
+                                                </div>
+
+                                            </div>
+                                        </div>
+                                        <!-- /tile body -->
+
+                                    </section>
+                                    <!-- /tile -->
+                                </div>
+
+                            </div>
+                            <!-- /col 4 -->
+
+                        </div>
+                        <!-- /row -->
+
+                    </div>
+                    <!-- /row -->
+
+                    <div id="mmenu" class="right-panel">
+                        <!-- Nav tabs -->
+                        <ul class="nav nav-tabs nav-justified">
+                            <li class="active"><a href="#mmenu-users" data-toggle="tab"><i class="fa fa-gear"></i></a></li>
+                            @*<li class=""><a href="#mmenu-history" data-toggle="tab"><i class="fa fa-clock-o"></i></a></li>
+                                <li class=""><a href="#mmenu-friends" data-toggle="tab"><i class="fa fa-heart"></i></a></li>
+                                <li class=""><a href="#mmenu-settings" data-toggle="tab"><i class="fa fa-gear"></i></a></li>*@
+                        </ul>
+
+                        <!-- Tab panes -->
+                        <div class="tab-content">
+                            <div class="tab-pane active" id="mmenu-users">
+                                <h5><strong>Online</strong> Users</h5>
+
+                                <ul class="users-list">
+
+                                    <li class="online">
+                                        <div class="media">
+                                            <a class="pull-left profile-photo" href="#">
+                                                <img class="media-object" src="assets/images/ici-avatar.jpg">
+                                            </a>
+                                            <div class="media-body">
+                                                <h6 class="media-heading">Ing. Imrich <strong>Kamarel</strong></h6>
+                                                <small><i class="fa fa-map-marker"></i> Ulaanbaatar, Mongolia</small>
+                                                <span class="badge badge-outline status"></span>
+                                            </div>
+                                        </div>
+                                    </li>
+
+                                    <li class="online">
+                                        <div class="media">
+                                            <a class="pull-left profile-photo" href="#">
+                                                <img class="media-object" src="assets/images/arnold-avatar.jpg">
+                                            </a>
+                                            <span class="badge badge-red unread">3</span>
+
+                                            <div class="media-body">
+                                                <h6 class="media-heading">Arnold <strong>Karlsberg</strong></h6>
+                                                <small><i class="fa fa-map-marker"></i> Bratislava, Slovakia</small>
+                                                <span class="badge badge-outline status"></span>
+                                            </div>
+                                        </div>
+                                    </li>
+
+                                    <li class="online">
+                                        <div class="media">
+                                            <a class="pull-left profile-photo" href="#">
+                                                <img class="media-object" src="assets/images/peter-avatar.jpg">
+
+                                            </a>
+                                            <div class="media-body">
+                                                <h6 class="media-heading">Peter <strong>Kay</strong></h6>
+                                                <small><i class="fa fa-map-marker"></i> Kosice, Slovakia</small>
+                                                <span class="badge badge-outline status"></span>
+                                            </div>
+                                        </div>
+                                    </li>
+
+                                    <li class="online">
+                                        <div class="media">
+                                            <a class="pull-left profile-photo" href="#">
+                                                <img class="media-object" src="assets/images/george-avatar.jpg">
+                                            </a>
+                                            <div class="media-body">
+                                                <h6 class="media-heading">George <strong>McCain</strong></h6>
+                                                <small><i class="fa fa-map-marker"></i> Prague, Czech Republic</small>
+                                                <span class="badge badge-outline status"></span>
+                                            </div>
+                                        </div>
+                                    </li>
+
+                                    <li class="busy">
+                                        <div class="media">
+                                            <a class="pull-left profile-photo" href="#">
+                                                <img class="media-object" src="assets/images/random-avatar1.jpg">
+                                            </a>
+                                            <div class="media-body">
+                                                <h6 class="media-heading">Lucius <strong>Cashmere</strong></h6>
+                                                <small><i class="fa fa-map-marker"></i> Wien, Austria</small>
+                                                <span class="badge badge-outline status"></span>
+                                            </div>
+                                        </div>
+                                    </li>
+
+                                    <li class="busy">
+                                        <div class="media">
+                                            <a class="pull-left profile-photo" href="#">
+                                                <img class="media-object" src="assets/images/random-avatar2.jpg">
+                                            </a>
+                                            <div class="media-body">
+                                                <h6 class="media-heading">Jesse <strong>Phoenix</strong></h6>
+                                                <small><i class="fa fa-map-marker"></i> Berlin, Germany</small>
+                                                <span class="badge badge-outline status"></span>
+                                            </div>
+                                        </div>
+                                    </li>
+
+                                </ul>
+
+                                <h5><strong>Offline</strong> Users</h5>
+
+                                <ul class="users-list">
+
+                                    <li class="offline">
+                                        <div class="media">
+                                            <a class="pull-left profile-photo" href="#">
+                                                <img class="media-object" src="assets/images/random-avatar4.jpg">
+                                            </a>
+                                            <div class="media-body">
+                                                <h6 class="media-heading">Dell <strong>MacApple</strong></h6>
+                                                <small><i class="fa fa-map-marker"></i> Paris, France</small>
+                                                <span class="badge badge-outline status"></span>
+                                            </div>
+                                        </div>
+                                    </li>
+
+                                    <li class="offline">
+                                        <div class="media">
+
+                                            <a class="pull-left profile-photo" href="#">
+                                                <img class="media-object" src="assets/images/random-avatar5.jpg">
+                                            </a>
+
+                                            <div class="media-body">
+                                                <h6 class="media-heading">Roger <strong>Flopple</strong></h6>
+                                                <small><i class="fa fa-map-marker"></i> Rome, Italia</small>
+                                                <span class="badge badge-outline status"></span>
+                                            </div>
+
+                                        </div>
+                                    </li>
+
+                                    <li class="offline">
+                                        <div class="media">
+                                            <a class="pull-left profile-photo" href="#">
+                                                <img class="media-object" src="assets/images/random-avatar6.jpg">
+                                            </a>
+                                            <div class="media-body">
+                                                <h6 class="media-heading">Nico <strong>Vulture</strong></h6>
+                                                <small><i class="fa fa-map-marker"></i> Kyjev, Ukraine</small>
+                                                <span class="badge badge-outline status"></span>
+                                            </div>
+                                        </div>
+                                    </li>
+
+                                    <li class="offline">
+                                        <div class="media">
+                                            <a class="pull-left profile-photo" href="#">
+                                                <img class="media-object" src="assets/images/random-avatar7.jpg">
+                                            </a>
+                                            <div class="media-body">
+                                                <h6 class="media-heading">Bobby <strong>Socks</strong></h6>
+                                                <small><i class="fa fa-map-marker"></i> Moscow, Russia</small>
+                                                <span class="badge badge-outline status"></span>
+                                            </div>
+                                        </div>
+                                    </li>
+
+                                    <li class="offline">
+                                        <div class="media">
+                                            <a class="pull-left profile-photo" href="#">
+                                                <img class="media-object" src="assets/images/random-avatar8.jpg">
+                                            </a>
+                                            <div class="media-body">
+                                                <h6 class="media-heading">Anna <strong>Opichia</strong></h6>
+                                                <small><i class="fa fa-map-marker"></i> Budapest, Hungary</small>
+                                                <span class="badge badge-outline status"></span>
+                                            </div>
+                                        </div>
+                                    </li>
+
+                                </ul>
+
+                            </div>
+
+                        </div><!-- tab-content -->
+                    </div>
+
+
+
+                </div>
+                <!-- /content container -->
+
+            </div>
+            <!-- Page content end -->
+            <!-- Make page fluid-->
+            <!-- Wrap all page content end -->
+            <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+            <script src="https://code.jquery.com/jquery.js"></script>
+            <!-- Include all compiled plugins (below), or include individual files as needed -->
+            <script src="~/assets/js/vendor/bootstrap/bootstrap.min.js"></script>
+            <script src="~/assets/js/vendor/bootstrap/bootstrap-dropdown-multilevel.js"></script>
+            <script type="text/javascript" src="~/assets/js/vendor/mmenu/js/jquery.mmenu.min.js"></script>
+            <script type="text/javascript" src="~/assets/js/vendor/sparkline/jquery.sparkline.min.js"></script>
+            <script type="text/javascript" src="~/assets/js/vendor/nicescroll/jquery.nicescroll.min.js"></script>
+            <script type="text/javascript" src="~/assets/js/vendor/animate-numbers/jquery.animateNumbers.js"></script>
+            <script type="text/javascript" src="~/assets/js/vendor/videobackground/jquery.videobackground.js"></script>
+            <script type="text/javascript" src="~/assets/js/vendor/blockui/jquery.blockUI.js"></script>
+
+            <script src="~/assets/js/vendor/owl-carousel/owl.carousel.min.js"></script>
+            <script src="~/assets/js/vendor/tabdrop/bootstrap-tabdrop.min.js"></script>
+            <script src="~/assets/js/vendor/summernote/summernote.min.js"></script>
+            <script src="~/assets/js/vendor/chosen/chosen.jquery.min.js"></script>
+
+            <script src="~/assets/js/minimal.min.js"></script>
+
+            <script>
+                //owl carousel
+                $("#owl-example").owlCarousel({
+                    singleItem: true,
+                    autoPlay: true,
+                    navigation: true,
+                    slideSpeed: 400,
+                    paginationSpeed: 500,
+                    navigationText: ['<i class="fa fa-chevron-left"></i>', '<i class="fa fa-chevron-right"></i>']
+                });
+                $("#owl-example2").owlCarousel({
+                    singleItem: true,
+                    autoPlay: true,
+                    navigation: true,
+                    slideSpeed: 400,
+                    paginationSpeed: 500,
+                    navigationText: ['<i class="fa fa-chevron-left"></i>', '<i class="fa fa-chevron-right"></i>']
+                });
+                $(window).resize(function () {
+                    // redraw the graph in the correctly sized div
+                    plot.resize();
+                    plot.setupGrid();
+                    plot.draw();
+                });
+
+                $('#mmenu').on(
+                  "opened.mm",
+                  function () {
+                      // redraw the graph in the correctly sized div
+                      plot.resize();
+                      plot.setupGrid();
+                      plot.draw();
+                  }
+                );
+
+                $('#mmenu').on(
+                  "closed.mm",
+                  function () {
+                      // redraw the graph in the correctly sized div
+                      plot.resize();
+                      plot.setupGrid();
+                      plot.draw();
+                  }
+                );
+            </script>
+        </form>
+    </body>
+</html>

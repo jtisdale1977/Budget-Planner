@@ -1,0 +1,440 @@
+﻿@model IEnumerable<Budget_Planner.Models.BudgetItem>
+
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Budget Planner</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta charset="UTF-8" />
+
+    <link rel="icon" type="image/ico" href="~/assets/images/favicon.ico" />
+    <!-- Bootstrap -->
+    <link href="~/assets/css/vendor/bootstrap/bootstrap.min.css" rel="stylesheet">
+    <link href="http://maxcdn.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="~/assets/css/vendor/animate/animate.min.css">
+    <link type="text/css" rel="stylesheet" media="all" href="~/assets/js/vendor/mmenu/css/jquery.mmenu.all.css" />
+    <link rel="stylesheet" href="~/assets/js/vendor/videobackground/css/jquery.videobackground.css">
+    <link rel="stylesheet" href="~/assets/css/vendor/bootstrap-checkbox.css">
+    <link rel="stylesheet" href="~/assets/css/vendor/bootstrap/bootstrap-dropdown-multilevel.css">
+
+    <link rel="stylesheet" href="~/assets/js/vendor/chosen/css/chosen.min.css">
+    <link rel="stylesheet" href="~/assets/js/vendor/chosen/css/chosen-bootstrap.css">
+
+    <link href="~/assets/css/minimal.css" rel="stylesheet">
+
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+      <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+      <script src="https://oss.maxcdn.com/libs/respond.js/1.3.0/respond.min.js"></script>
+    <![endif]-->
+</head>
+
+<body class="bg-1">
+    <form style="height:100%; overflow: hidden;">
+        <!-- Preloader -->
+        <div class="mask"><div id="loader"></div></div>
+        <!--/Preloader -->
+        <!-- Wrap all page content here -->
+        <div id="wrap">
+
+
+            <!-- Make page fluid -->
+            <div class="row">
+
+
+                <!-- Fixed navbar -->
+                <div class="navbar navbar-default navbar-fixed-top navbar-transparent-black mm-fixed-top collapsed" role="navigation" id="navbar">
+
+
+                    <!-- Branding -->
+                    <div class="navbar-header col-md-2">
+                        <a class="navbar-brand" href="javascript:void(0);">
+                            <strong>POCKET </strong>GAURD
+                        </a>
+                        <div class="sidebar-collapse">
+                            <a href="#">
+                                <i class="fa fa-bars"></i>
+                            </a>
+                        </div>
+                    </div>
+                    <!-- Branding end -->
+                    <!-- .nav-collapse -->
+                    <div class="navbar-collapse">
+
+                        <!-- Page refresh -->
+                        <ul class="nav navbar-nav refresh">
+                            <li class="divided">
+                                <a href="#" class="page-refresh"><i class="fa fa-refresh"></i></a>
+                            </li>
+                        </ul>
+                        <!-- /Page refresh -->
+                        <!-- Search -->
+                        <div class="search" id="main-search">
+                            <i class="fa fa-search"></i> <input type="text" placeholder="Search...">
+                        </div>
+                        <!-- Search end -->
+                        <!-- Quick Actions -->
+                        <ul class="nav navbar-nav quick-actions">
+
+                            <li class="dropdown divided user" id="current-user">
+                                <div class="profile-photo">
+                                    <img src="~/assets/images/profile-photo.jpg" />
+                                </div>
+                                <a class="dropdown-toggle options" data-toggle="dropdown">
+                                    Welcome @User.Identity.Name <i class="fa fa-caret-down"></i>
+                                </a>
+
+                                <ul class="dropdown-menu arrow settings">
+                                    @if (Request.IsAuthenticated)
+                                    {
+                                        using (Html.BeginForm("LogOff", "Account", FormMethod.Post, new { id = "logoutForm", @class = "navbar-right" }))
+                                        {
+                                            @Html.AntiForgeryToken()
+                                            <li>
+                                                <a href="javascript:(0);"><i class="fa fa-user"></i> @User.Identity.Name</a>
+
+                                            </li>
+
+                                            <li class="divider"></li>
+
+                                            <li>
+                                                <a href="@Url.Action("Index", "Manage")"><i class="fa fa-gear"></i> My Account</a>
+                                            </li>
+
+                                            <li>
+                                                <a href="javascript:document.getElementById('logoutForm').submit()"><i class="fa fa-calendar"></i> Logout</a>
+                                            </li>
+
+                                            <li>
+                                                <a href="javascript:(0);"><i class="fa fa-envelope"></i> Messages <span class="badge badge-red" id="user-inbox">0</span></a>
+                                            </li>
+                                        }
+                                    }
+                                </ul>
+                            </li>
+                            <li>
+                                <a href="#mmenu"><i class="fa fa-comments"></i></a>
+                            </li>
+                        </ul>
+                        <!-- /Quick Actions -->
+                        <!-- Sidebar -->
+                        <ul class="nav navbar-nav side-nav" id="sidebar">
+
+                            <li class="collapsed-content">
+                                <ul>
+                                    <li class="search"><!-- Collapsed search pasting here at 768px --></li>
+                                </ul>
+                            </li>
+
+                            <li class="navigation" id="navigation">
+                                <a href="#" class="sidebar-toggle" data-toggle="#navigation">Navigation <i class="fa fa-angle-up"></i></a>
+
+                                <ul class="menu">
+
+                                    <li class="active">
+                                        <a href="javascript:void(0);">
+                                            <i class="fa fa-tachometer"></i> Dashboard
+                                            @*<span class="badge badge-red">1</span>*@
+                                        </a>
+                                    </li>
+
+                                    <li class="dropdown">
+                                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                                            <i class="fa fa-"></i> Household <b class="fa fa-plus dropdown-plus"></b>
+                                        </a>
+                                        <ul class="dropdown-menu">
+                                            <li>
+                                                <a href="@Url.Action("Details", "Households")">
+                                                    <i class="fa fa-caret-right"></i> My Household
+                                                </a>
+                                            </li>
+                                            <li>
+                                                <a href="@Url.Action("Index", "BankAccounts")">
+                                                    <i class="fa fa-caret-right"></i> House Accounts
+                                                </a>
+                                            </li>
+                                            <li>
+                                                <a href="@Url.Action("Index", "Budgets")">
+                                                    <i class="fa fa-caret-right"></i> House Budgets
+                                                </a>
+                                            </li>
+                                            <li class="dropdown">
+                                                <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="fa fa-usd"></i> House Transactions <b class="fa fa-plus dropdown-plus"></b></a>
+                                                <ul class="dropdown-menu">
+                                                    <li>
+                                                        <a href="@Url.Action("Index", "Transactions")">
+                                                            <i class="fa fa-caret-right"></i> Transaction Index
+                                                        </a>
+                                                    </li>
+                                                    <li>
+                                                        <a href="@Url.Action("Create", "Transactions")">
+                                                            <i class="fa fa-caret-right"></i> New Transaction
+                                                        </a>
+                                                    </li>
+                                                </ul>
+                                            </li>
+                                        </ul>
+                                    </li>
+                                </ul>
+
+                            </li>
+
+                            <li class="settings" id="general-settings">
+                                <a href="#" class="sidebar-toggle underline" data-toggle="#general-settings">User Settings <i class="fa fa-angle-up"></i></a>
+
+                                <ul class="menu">
+
+                                    <li class="active">
+                                        <a href="javascript:void(0);">
+                                            <i class="fa fa-users"></i> Member(s) Profile
+                                        </a>
+                                    </li>
+
+                                    <li class="dropdown">
+                                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                                            <i class="fa fa-user"></i> User Options <b class="fa fa-plus dropdown-plus"></b>
+                                        </a>
+                                        <ul class="dropdown-menu">
+                                            @if (Request.IsAuthenticated)
+                                            {
+                                                using (Html.BeginForm("LogOff", "Account", FormMethod.Post, new { id = "logoutForm", @class = "navbar-right" }))
+                                                {
+                                                    @Html.AntiForgeryToken()
+                                                    <li>
+                                                        <a href="@Url.Action("Index", "Manage")">
+                                                            <i class="fa fa-caret-right"></i> Update Profile
+                                                        </a>
+                                                    </li>
+                                                    <li>
+                                                        <a href="@Url.Action("ForgotPassword", "Account")">
+                                                            <i class="fa fa-caret-right"></i> Forgot Password
+                                                        </a>
+                                                    </li>
+                                                    <li>
+                                                        <a href="javascript:document.getElementById('logoutForm').submit()">
+                                                            <i class="fa fa-caret-right"></i> Log Off
+                                                        </a>
+                                                    </li>
+                                                }
+                                            }
+                                        </ul>
+                                    </li>
+                                </ul>
+                            </li>
+                        </ul>
+                        <!-- Sidebar end -->
+
+                    </div>
+                    <!--/.nav-collapse -->
+
+                </div>
+                <!-- Fixed navbar end -->
+
+                <!-- Page content -->
+                <div id="content" class="col-md-12">
+
+                    <!-- page header -->
+                    <div class="pageheader">
+
+                        <h2>
+                            <i class="fa fa-tachometer"></i> Household
+                            <span>// Budget Items...</span>
+                        </h2>
+
+                        <div class="breadcrumbs">
+                            <ol class="breadcrumb">
+                                <li>You are here</li>
+                                <li><a href="javascript:void(0);">Household</a></li>
+                                <li><a href="javascript:void(0);">Budget Items</a></li>
+                                <li class="active">Index</li>
+                            </ol>
+                        </div>
+
+                    </div>
+                    <!-- /page header -->
+
+                    <!-- content main container -->
+                    <div class="main">
+
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="col-md-4">
+                                    <button type="button" class="btn btn-success btn-md margin-bottom-20">@Html.ActionLink("Create New Budget Item", "Create")</button>
+                                    <button type="button" class="btn btn-slategray btn-md margin-bottom-20">@Html.ActionLink("Back To Dashboard", "Index", "Home")</button>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- row -->
+                        <div class="row">
+                            <div class="col-md-12">
+                                @foreach (var item in Model)
+                                {
+                            <!-- col 4 -->
+                                    <div class="col-md-12">
+
+                                        <!-- tile -->
+                                        <section class="tile color transparent-black">
+
+                                            <!-- tile header -->
+                                            <div class="tile-header color slategray text-center rounded-top-corners">
+                                                <button class="btn pull-left btn-black-transparent" type="button"><i class="fa fa-caret-square-o-down"></i> @Html.ActionLink("Budget Items", "ForBudget", "BudgetItems", new { id = item.Id }, null)</button>
+                                                <h1><strong>@Html.DisplayFor(modelItem => item.Budgets.Name)</strong></h1>
+                                                <div class="controls">
+                                                    <a href="@Url.Action("Edit", "BudgetItems", new { id = item.Id })"><i class="fa fa-bars" title="Edit This Budget Item"></i></a>
+                                                    <a href="@Url.Action("Details", "BudgetItems", new { id = item.Id })"><i class="fa fa-search" title="Details For This Budget Item"></i></a>
+                                                    <a href="@Url.Action("Delete", "BudgetItems", new { id = item.Id })"><i class="fa fa-times" title="Delete This Budget Item"></i></a>
+                                                </div>
+                                            </div>
+                                            <!-- /tile header -->
+                                            <!-- tile body -->
+                                            <div class="tile-body nopadding">
+
+                                                <table class="table table-hover">
+                                                    <thead>
+                                                        <tr>
+                                                            <th>For Budget</th>
+                                                            <th>Category</th>
+                                                            <th>Amount</th>
+                                                            <th>Creation Date</th>
+                                                            <th>Created By</th>
+                                                            <th>Adjustment Date</th>
+                                                            <th>Adjusted By</th>
+                                                        </tr>
+                                                    </thead>
+                                                    <tbody>
+                                                        <tr>
+                                                            <td align="center">@Html.DisplayFor(modelItem => item.Budgets.Name)</td>
+                                                            <td align="center">@Html.DisplayFor(modelItem => item.Categories.Name)</td>
+                                                            <td align="center">@Html.DisplayFor(modelItem => item.Amount)</td>
+                                                            <td align="center">@item.Created.ToLocalTime().ToString("MMM dd, yyyy - hh:mm tt")</td>
+                                                            <td align="center">@Html.DisplayFor(modelItem => item.EnteredBy)</td>
+                                                            <td align="center">@item.Updated.ToLocalTime().ToString("MMM dd, yyyy - hh:mm tt")</td>
+                                                            <td align="center">@Html.DisplayFor(modelItem => item.UpdatedBy)</td>
+                                                        </tr>
+                                                    </tbody>
+                                                </table>
+
+                                            </div>
+                                            <!-- /tile body -->
+                                            <div class="panel panel-slategray">
+                                                <div class="panel-heading">
+                                                    <h3 class="panel-title">Budget Item Notes</h3>
+                                                </div>
+                                                <div class="panel-body">
+                                                    <ul>
+                                                        <li>@Html.Raw(item.Notes)</li>
+                                                    </ul>
+                                                </div>
+                                            </div>
+
+                                        </section>
+                                        <!-- /tile -->
+
+                                    </div>
+                                }
+                                <!-- /row -->
+                            </div>
+                            <!-- row -->
+
+                        </div>
+                        <!-- /row -->
+
+                    </div>
+                    <!-- /content container -->
+
+                </div>
+                <!-- Page content end -->
+            </div>
+            <!-- Make page fluid-->
+        </div>
+        <!-- Wrap all page content end -->
+        <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+        <script src="https://code.jquery.com/jquery.js"></script>
+        <!-- Include all compiled plugins (below), or include individual files as needed -->
+        <script src="~/assets/js/vendor/bootstrap/bootstrap.min.js"></script>
+        <script src="~/assets/js/vendor/bootstrap/bootstrap-dropdown-multilevel.js"></script>
+        <script src="https://cdn.rawgit.com/google/code-prettify/master/loader/run_prettify.js?lang=css&amp;skin=sons-of-obsidian"></script>
+        <script type="text/javascript" src="~/assets/js/vendor/mmenu/js/jquery.mmenu.min.js"></script>
+        <script type="text/javascript" src="~/assets/js/vendor/sparkline/jquery.sparkline.min.js"></script>
+        <script type="text/javascript" src="~/assets/js/vendor/nicescroll/jquery.nicescroll.min.js"></script>
+        <script type="text/javascript" src="~/assets/js/vendor/animate-numbers/jquery.animateNumbers.js"></script>
+        <script type="text/javascript" src="~/assets/js/vendor/videobackground/jquery.videobackground.js"></script>
+        <script type="text/javascript" src="~/assets/js/vendor/blockui/jquery.blockUI.js"></script>
+
+        <script src="~/assets/js/vendor/chosen/chosen.jquery.min.js"></script>
+
+        <script src="~/assets/js/minimal.min.js"></script>
+    </form>
+    @section Scripts {
+        @Scripts.Render("~/bundles/jqueryval")
+    }
+
+
+</body>
+</html>
+
+@*<html>
+    <head>
+        <meta name="viewport" content="width=device-width" />
+        <title>Index</title>
+    </head>
+    <body>
+        <p>
+            @Html.ActionLink("Create New", "Create")
+        </p>
+        <table class="table">
+            <tr>
+                <th>
+                    @Html.DisplayNameFor(model => model.Households.Name)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Name)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Amount)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Description)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Created)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Updated)
+                </th>
+                <th></th>
+            </tr>
+
+        @foreach (var item in Model) {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Households.Name)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Name)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Amount)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Description)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Created)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Updated)
+                </td>
+                <td>
+                    @Html.ActionLink("Edit", "Edit", new { id=item.Id }) |
+                    @Html.ActionLink("Details", "Details", new { id=item.Id }) |
+                    @Html.ActionLink("Delete", "Delete", new { id=item.Id })
+                </td>
+            </tr>
+        }
+
+        </table>
+    </body>
+    </html>*@

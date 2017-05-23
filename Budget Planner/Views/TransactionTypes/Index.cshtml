@@ -1,0 +1,34 @@
+﻿@model IEnumerable<Budget_Planner.Models.TransactionType>
+
+@{
+    ViewBag.Title = "Transaction Types";
+}
+
+@section ContentHeader {
+    <h1>All Transaction Types (@Model.Count())</h1>
+}
+
+<table class="table table-striped table-bordered table-responsive">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Name)
+            </th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Name)
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+<p>
+    <a href=@Url.Action("Index", "Home") class="btn btn-sm btn-primary" title="Back Home">
+        <i class="fa fa-angle-double-left"></i> Back Home
+    </a>
+</p>

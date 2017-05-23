@@ -1,0 +1,63 @@
+﻿@model Budget_Planner.Models.Invitation
+
+@{
+    ViewBag.Title = "Invitation Details";
+}
+
+@section ContentHeader {
+    <h1>Invitation Details</h1>
+}
+
+<table class="table table-striped table-bordered table-responsive">
+    <thead>
+        <tr>
+            <th>
+                Invited to Household
+            </th>
+            <th>
+                Status
+            </th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td>
+                @Html.DisplayFor(model => model.Email)
+            </td>
+            <td>
+                @{
+                    string joinedStatusDisplayText = "";
+                    string joinedClassStatus = "";
+
+                    if (Model.Accepted)
+                    {
+                        joinedStatusDisplayText = "Accepted";
+                        joinedClassStatus = joinedStatusDisplayText;
+                    }
+                    else
+                    {
+                        joinedStatusDisplayText = "Not Accepted";
+                        joinedClassStatus = "NotJoined";
+                    }
+
+                    <span class="joinStatus_@joinedClassStatus">@joinedStatusDisplayText</span>
+                }
+            </td>
+        </tr>
+    </tbody>
+</table>
+
+<p>
+    <a href=@Url.Action("Index", "Invitations") class="btn btn-sm btn-primary" title="View All Invitations">
+        <i class="fa fa-angle-double-left"></i> Back to All Invitations
+    </a>
+</p>
+<p>
+    <a href=@Url.Action("Index", "Home") class="btn btn-sm btn-primary" title="Back to the Dashboard/Home">
+        <i class="fa fa-angle-double-left"></i> Back Home
+    </a>
+</p>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.Id }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>*@

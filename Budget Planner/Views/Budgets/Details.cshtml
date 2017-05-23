@@ -1,0 +1,82 @@
+﻿@model Budget_Planner.Models.Budget
+
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Details</title>
+</head>
+<body>
+    <div>
+        <h4>Budget</h4>
+        <hr />
+        <dl class="dl-horizontal">
+            <dt>
+                @Html.DisplayNameFor(model => model.Household.Name)
+            </dt>
+    
+            <dd>
+                @Html.DisplayFor(model => model.Household.Name)
+            </dd>
+    
+            <dt>
+                @Html.DisplayNameFor(model => model.Name)
+            </dt>
+    
+            <dd>
+                @Html.DisplayFor(model => model.Name)
+            </dd>
+    
+            <dt>
+                @Html.DisplayNameFor(model => model.Notes)
+            </dt>
+    
+            <dd>
+                @Html.DisplayFor(model => model.Notes)
+            </dd>
+    
+            <dt>
+                @Html.DisplayNameFor(model => model.Created)
+            </dt>
+    
+            <dd>
+                @Html.DisplayFor(model => model.Created)
+            </dd>
+    
+            <dt>
+                @Html.DisplayNameFor(model => model.Updated)
+            </dt>
+    
+            <dd>
+                @Html.DisplayFor(model => model.Updated)
+            </dd>
+    
+            <dt>
+                @Html.DisplayNameFor(model => model.EnteredBy)
+            </dt>
+    
+            <dd>
+                @Html.DisplayFor(model => model.EnteredBy)
+            </dd>
+    
+            <dt>
+                @Html.DisplayNameFor(model => model.UpdatedBy)
+            </dt>
+    
+            <dd>
+                @Html.DisplayFor(model => model.UpdatedBy)
+            </dd>
+    
+        </dl>
+    </div>
+    <p>
+        @Html.ActionLink("Edit", "Edit", new { id = Model.Id }) |
+        @Html.ActionLink("Back to List", "Index")
+    </p>
+</body>
+</html>

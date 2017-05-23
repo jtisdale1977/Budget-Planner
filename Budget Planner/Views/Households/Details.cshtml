@@ -1,0 +1,983 @@
+﻿@model Budget_Planner.Models.Household
+
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Budget Planner</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta charset="UTF-8" />
+
+    <link rel="icon" type="image/ico" href="~/assets/images/favicon.ico" />
+    <!-- Bootstrap -->
+    <link href="~/assets/css/vendor/bootstrap/bootstrap.min.css" rel="stylesheet">
+    <link href="http://maxcdn.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="~/assets/css/vendor/animate/animate.css">
+    <link type="text/css" rel="stylesheet" media="all" href="~/assets/js/vendor/mmenu/css/jquery.mmenu.all.css" />
+    <link rel="stylesheet" href="~/assets/js/vendor/videobackground/css/jquery.videobackground.css">
+    <link rel="stylesheet" href="~/assets/css/vendor/bootstrap-checkbox.css">
+    <link rel="stylesheet" href="~/assets/css/vendor/bootstrap/bootstrap-dropdown-multilevel.css">
+    <link rel="stylesheet" href="~/assets/js/vendor/chosen/css/chosen.min.css">
+    <link rel="stylesheet" href="~/assets/js/vendor/chosen/css/chosen-bootstrap.css">
+    <link rel="stylesheet" href="~/assets/js/vendor/tabdrop/css/tabdrop.css">
+    <link rel="stylesheet" href="~/assets/js/vendor/morris/css/morris.css">
+    <link rel="stylesheet" href="~/assets/js/vendor/rickshaw/css/rickshaw.min.css">
+
+    <link href="~/assets/css/minimal.css" rel="stylesheet">
+
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+      <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+      <script src="https://oss.maxcdn.com/libs/respond.js/1.3.0/respond.min.js"></script>
+    <![endif]-->
+</head>
+
+<body class="bg-1">
+    <form style="height:100%; overflow: hidden;">
+        <!-- Preloader -->
+        <div class="mask"><div id="loader"></div></div>
+        <!--/Preloader -->
+        <!-- Wrap all page content here -->
+        <div id="wrap">
+
+
+            <!-- Make page fluid -->
+            <div class="row">
+
+
+                <!-- Fixed navbar -->
+                <div class="navbar navbar-default navbar-fixed-top navbar-transparent-black mm-fixed-top collapsed" role="navigation" id="navbar">
+
+
+                    <!-- Branding -->
+                    <div class="navbar-header col-md-2">
+                        <a class="navbar-brand" href="javascript:void(0);">
+                            <strong>POCKET </strong> GUARD
+                        </a>
+                        <div class="sidebar-collapse">
+                            <a href="#">
+                                <i class="fa fa-bars"></i>
+                            </a>
+                        </div>
+                    </div>
+                    <!-- Branding end -->
+                    <!-- .nav-collapse -->
+                    <div class="navbar-collapse">
+
+                        <!-- Page refresh -->
+                        <ul class="nav navbar-nav refresh">
+                            <li class="divided">
+                                <a href="#" class="page-refresh"><i class="fa fa-refresh"></i></a>
+                            </li>
+                        </ul>
+                        <!-- /Page refresh -->
+                        <!-- Search -->
+                        <div class="search" id="main-search">
+                            <i class="fa fa-search"></i> <input type="text" placeholder="Search...">
+                        </div>
+                        <!-- Search end -->
+                        <!-- Quick Actions -->
+                        <ul class="nav navbar-nav quick-actions">
+
+                            @*<li class="dropdown divided">
+
+                                    <a class="dropdown-toggle button" data-toggle="dropdown" href="#">
+                                        <i class="fa fa-tasks"></i>
+                                        <span class="label label-transparent-black"> </span>
+                                    </a>
+
+                                    <ul class="dropdown-menu wide arrow nopadding bordered">
+                                        <li><h1>You have <strong>0</strong> new tasks</h1></li>
+                                        <li>
+                                            <a href="#">
+                                                <div class="task-info">
+                                                    <div class="desc">Health Care</div>
+                                                    <div class="percent">80%</div>
+                                                </div>
+                                                <div class="progress progress-striped progress-thin">
+                                                    <div class="progress-bar progress-bar-green" role="progressbar" aria-valuenow="40" aria-valuemin="0" aria-valuemax="100" style="width: 80%">
+                                                        <span class="sr-only">40% Complete (success)</span>
+                                                    </div>
+                                                </div>
+                                            </a>
+                                        </li>
+                                        <li>
+                                            <a href="#">
+                                                <div class="task-info">
+                                                    <div class="desc">Utilities</div>
+                                                    <div class="percent">15%</div>
+                                                </div>
+                                                <div class="progress progress-striped active progress-thin">
+                                                    <div class="progress-bar progress-bar-cyan" role="progressbar" aria-valuenow="45" aria-valuemin="0" aria-valuemax="100" style="width: 15%">
+                                                        <span class="sr-only">45% Complete</span>
+                                                    </div>
+                                                </div>
+                                            </a>
+                                        </li>
+                                        <li>
+                                            <a href="#">
+                                                <div class="task-info">
+                                                    <div class="desc">Housing</div>
+                                                    <div class="percent">5%</div>
+                                                </div>
+                                                <div class="progress progress-striped progress-thin">
+                                                    <div class="progress-bar progress-bar-orange" role="progressbar" aria-valuenow="45" aria-valuemin="0" aria-valuemax="100" style="width: 5%">
+                                                        <span class="sr-only">5% Complete (warning)</span>
+                                                    </div>
+                                                </div>
+                                            </a>
+                                        </li>
+                                        <li>
+                                            <a href="#">
+                                                <div class="task-info">
+                                                    <div class="desc">Food and Groceries</div>
+                                                    <div class="percent">30%</div>
+                                                </div>
+                                                <div class="progress progress-striped progress-thin">
+                                                    <div class="progress-bar progress-bar-red" role="progressbar" aria-valuenow="45" aria-valuemin="0" aria-valuemax="100" style="width: 30%">
+                                                        <span class="sr-only">30% Complete (danger)</span>
+                                                    </div>
+                                                </div>
+                                            </a>
+                                        </li>
+                                        <li>
+                                            <a href="#">
+                                                <div class="task-info">
+                                                    <div class="desc">Entertainment</div>
+                                                    <div class="percent">60%</div>
+                                                </div>
+                                                <div class="progress progress-striped progress-thin">
+                                                    <div class="progress-bar progress-bar-amethyst" role="progressbar" aria-valuenow="45" aria-valuemin="0" aria-valuemax="100" style="width: 60%">
+                                                        <span class="sr-only">60% Complete</span>
+                                                    </div>
+                                                </div>
+                                            </a>
+                                        </li>
+                                        <li><a href="#">Check all tasks <i class="fa fa-angle-right"></i></a></li>
+                                    </ul>
+
+                                </li>*@
+
+                            @*<li class="dropdown divided">
+
+                                    <a class="dropdown-toggle button" data-toggle="dropdown" href="#">
+                                        <i class="fa fa-envelope"></i>
+                                        <span class="label label-transparent-black">0</span>
+                                    </a>
+
+                                    <ul class="dropdown-menu wider arrow nopadding messages">
+                                        <li><h1>You have <strong>1</strong> new message</h1></li>
+                                        <li>
+                                            <a class="cyan" href="#">
+                                                <div class="profile-photo">
+                                                    <img src="~/assets/images/ici-avatar.jpg" alt />
+                                                </div>
+                                                <div class="message-info">
+                                                    <span class="sender"> </span>
+                                                    <span class="time">Created</span>
+                                                    <div class="message-content">""</div>
+                                                </div>
+                                            </a>
+                                        </li>
+
+                                        <li>
+                                            <a class="green" href="#">
+                                                <div class="profile-photo">
+                                                    <img src="~/assets/images/arnold-avatar.jpg" alt />
+                                                </div>
+                                                <div class="message-info">
+                                                    <span class="sender"> </span>
+                                                    <span class="time">Created</span>
+                                                    <div class="message-content">""</div>
+                                                </div>
+                                            </a>
+                                        </li>
+
+                                        <li>
+                                            <a href="#">
+                                                <div class="profile-photo">
+                                                    <img src="~/assets/images/profile-photo.jpg" alt />
+                                                </div>
+                                                <div class="message-info">
+                                                    <span class="sender"> </span>
+                                                    <span class="time">Created</span>
+                                                    <div class="message-content">""</div>
+                                                </div>
+                                            </a>
+                                        </li>
+
+                                        <li>
+                                            <a class="red" href="#">
+                                                <div class="profile-photo">
+                                                    <img src="~/assets/images/peter-avatar.jpg" alt />
+                                                </div>
+                                                <div class="message-info">
+                                                    <span class="sender"> </span>
+                                                    <span class="time">Created</span>
+                                                    <div class="message-content">""</div>
+                                                </div>
+                                            </a>
+                                        </li>
+
+                                        <li>
+                                            <a class="orange" href="#">
+                                                <div class="profile-photo">
+                                                    <img src="~/assets/images/george-avatar.jpg" alt />
+                                                </div>
+                                                <div class="message-info">
+                                                    <span class="sender"> </span>
+                                                    <span class="time">Created</span>
+                                                    <div class="message-content">""</div>
+                                                </div>
+                                            </a>
+                                        </li>
+
+
+                                        <li class="topborder"><a href="#">Check all messages <i class="fa fa-angle-right"></i></a></li>
+                                    </ul>
+
+                                </li>*@
+
+                            @*<li class="dropdown divided">
+
+                                    <a class="dropdown-toggle button" data-toggle="dropdown" href="#">
+                                        <i class="fa fa-bell"></i>
+                                        <span class="label label-transparent-black">3</span>
+                                    </a>
+
+                                    <ul class="dropdown-menu wide arrow nopadding bordered">
+                                        <li><h1>You have <strong>3</strong> new notifications</h1></li>
+
+                                        <li>
+                                            <a href="#">
+                                                <span class="label label-green"><i class="fa fa-user"></i></span>
+                                                New user registered.
+                                                <span class="small">Created</span>
+                                            </a>
+                                        </li>
+
+                                        <li>
+                                            <a href="#">
+                                                <span class="label label-red"><i class="fa fa-power-off"></i></span>
+                                                Server down.
+                                                <span class="small">Created</span>
+                                            </a>
+                                        </li>
+
+                                        <li>
+                                            <a href="#">
+                                                <span class="label label-orange"><i class="fa fa-plus"></i></span>
+                                                New order.
+                                                <span class="small">Created</span>
+                                            </a>
+                                        </li>
+
+                                        <li>
+                                            <a href="#">
+                                                <span class="label label-cyan"><i class="fa fa-power-off"></i></span>
+                                                Server restared.
+                                                <span class="small">Created</span>
+                                            </a>
+                                        </li>
+
+                                        <li>
+                                            <a href="#">
+                                                <span class="label label-amethyst"><i class="fa fa-power-off"></i></span>
+                                                Server started.
+                                                <span class="small">Created</span>
+                                            </a>
+                                        </li>
+
+                                        <li><a href="#">Check all notifications <i class="fa fa-angle-right"></i></a></li>
+                                    </ul>
+
+                                </li>*@
+
+                            <li class="dropdown divided user" id="current-user">
+                                <div class="profile-photo">
+                                    <img src="~/assets/images/profile-photo.jpg" />
+                                </div>
+                                <a class="dropdown-toggle options" data-toggle="dropdown">
+                                    @Html.Partial("_LoginPartial") @*<i class="fa fa-caret-down"></i>*@
+                                </a>
+
+                                <ul class="dropdown-menu arrow settings">
+
+                                    <li class="divider"></li>
+
+                                    <li>
+                                        <a href="#"><i class="fa fa-user"></i> Profile</a>
+                                    </li>
+
+                                    <li>
+                                        <a href="#"><i class="fa fa-calendar"></i> Calendar</a>
+                                    </li>
+
+                                    <li>
+                                        <a href="#"><i class="fa fa-envelope"></i> Inbox <span class="badge badge-red" id="user-inbox">3</span></a>
+                                    </li>
+
+                                    <li class="divider"></li>
+
+                                    <li>
+                                        <a href="#"><i class="fa fa-power-off"></i> Logout</a>
+                                    </li>
+                                </ul>
+                            </li>
+
+                            <li>
+                                <a href="#mmenu"><i class="fa fa-envelope"><span class="label label-transparent-black">0</span></i></a>
+                            </li>
+                        </ul>
+                        <!-- /Quick Actions -->
+                        <!-- Sidebar -->
+                        <ul class="nav navbar-nav side-nav" id="sidebar">
+
+                            <li class="collapsed-content">
+                                <ul>
+                                    <li class="search"><!-- Collapsed search pasting here at 768px --></li>
+                                </ul>
+                            </li>
+
+                            <li class="navigation" id="navigation">
+                                <a href="#" class="sidebar-toggle" data-toggle="#navigation">Navigation <i class="fa fa-angle-up"></i></a>
+
+                                <ul class="menu">
+
+                                    <li class="active">
+                                        <a href="javascript:void(0);">
+                                            <i class="fa fa-tachometer"></i> Dashboard
+                                            @*<span class="badge badge-red">1</span>*@
+                                        </a>
+                                    </li>
+
+                                    <li class="dropdown">
+                                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                                            <i class="fa fa-heart"></i> Household <b class="fa fa-plus dropdown-plus"></b>
+                                        </a>
+                                        <ul class="dropdown-menu">
+                                            <li>
+                                                <a href="javascript:void(0);">
+                                                    <i class="fa fa-caret-right"></i> Accounts
+                                                </a>
+                                            </li>
+                                            <li>
+                                                <a href="javascript:void(0);">
+                                                    <i class="fa fa-caret-right"></i> Budgets
+                                                </a>
+                                            </li>
+                                            <li>
+                                                <a href="javascript:void(0);">
+                                                    <i class="fa fa-caret-right"></i> Messages
+                                                </a>
+                                            </li>
+                                        </ul>
+                                    </li>
+                                </ul>
+
+                            </li>
+
+                            <li class="summary" id="order-summary">
+                                <a href="#" class="sidebar-toggle underline" data-toggle="#order-summary">Recent Activity <i class="fa fa-angle-up"></i></a>
+
+                                <ul class="menu">
+
+                                    <li class="active">
+                                        <a href="javascript:void(0);">
+                                            <i class="fa fa-usd"></i> Transactions
+                                        </a>
+                                    </li>
+                                    <li class="active">
+                                        <a href="javascript:void(0);">
+                                            <i class="fa fa-comment"></i> Notifications
+                                        </a>
+                                    </li>
+                                </ul>
+
+                            </li>
+
+                            <li class="settings" id="general-settings">
+                                <a href="#" class="sidebar-toggle underline" data-toggle="#general-settings">User Settings <i class="fa fa-angle-up"></i></a>
+
+                                <ul class="menu">
+
+                                    <li class="active">
+                                        <a href="javascript:void(0);">
+                                            <i class="fa fa-users"></i> Member(s) Profile
+                                        </a>
+                                    </li>
+
+                                    <li class="dropdown">
+                                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                                            <i class="fa fa-user"></i> User Options <b class="fa fa-plus dropdown-plus"></b>
+                                        </a>
+                                        <ul class="dropdown-menu">
+                                            <li>
+                                                <a href="javascript:void(0);">
+                                                    <i class="fa fa-caret-right"></i> Update Profile
+                                                </a>
+                                            </li>
+                                            <li>
+                                                <a href="javascript:void(0);">
+                                                    <i class="fa fa-caret-right"></i> Change Password
+                                                </a>
+                                            </li>
+                                            <li>
+                                                <a href="javascript:void(0);">
+                                                    <i class="fa fa-caret-right"></i> Sign Out
+                                                </a>
+                                            </li>
+                                        </ul>
+                                    </li>
+                                </ul>
+
+                            </li>
+
+
+                        </ul>
+                        <!-- Sidebar end -->
+
+
+
+
+
+                    </div>
+                    <!--/.nav-collapse -->
+
+
+
+
+
+                </div>
+                <!-- Fixed navbar end -->
+                <!-- Page content -->
+                <div id="content" class="col-md-12">
+
+
+                    <!-- page header -->
+                    <div class="pageheader">
+
+
+                        <h2><i class="fa fa-th" style="line-height: 50px;padding-left: 2px;"></i> @Model.Name <span>// Details...</span></h2>
+
+
+                        <div class="breadcrumbs">
+                            <ol class="breadcrumb">
+                                <li>You are here</li>
+                                <li><a href="javascript:void(0);">Household</a></li>
+                                <li class="active">Details</li>
+                            </ol>
+                        </div>
+
+
+                    </div>
+                    <!-- /page header -->
+                    <!-- content main container -->
+                    <div class="main">
+                        <div class="row">
+                            <div class="col-md-12">
+                                <button type="button" class="btn btn-success btn-xs margin-bottom-20">@Html.ActionLink("Invite New Member", "Create", "Invitations")</button>
+                                <button type="button" class="btn btn-primary btn-xs margin-bottom-20">@Html.ActionLink("Edit Household", "Edit", "Households", new { id = Model.Id }, null)</button>
+                                <button type="button" class="btn btn-danger btn-xs margin-bottom-20">@Html.ActionLink("Leave Household", "Leave", "Households", new { id = Model.Id }, null)</button>
+                                <button type="button" class="btn btn-slategray btn-xs margin-bottom-20">@Html.ActionLink("Back To Dashboard", "Index", "Home", new { id = Model.Id }, null)</button>
+                            </div>
+                        </div>
+
+                        <div class="row">
+
+                            <!-- col 12 -->
+                            <div class="col-md-12">
+
+
+
+                                <!-- tile -->
+                                <section class="tile">
+
+
+
+                                    <!-- tile header -->
+                                    <div class="tile-header">
+                                        <h1><strong>Household</strong> Comparisons</h1>
+                                        <div class="controls">
+                                            <a href="#" class="minimize"><i class="fa fa-chevron-down"></i></a>
+                                            <a href="#" class="refresh"><i class="fa fa-refresh"></i></a>
+                                            @*<a href="#" class="remove"><i class="fa fa-times"></i></a>*@
+                                        </div>
+                                    </div>
+                                    <!-- /tile header -->
+                                    <!-- tile body -->
+                                    <div class="tile-body">
+
+                                        <div class="row">
+
+                                            <div class="col-md-8">
+
+                                                <h5 class="text-center"><strong>@Model.Name</strong> Income</h5>
+                                                <div id="bar-example" style="height: 250px;"></div>
+
+                                            </div>
+
+                                            <div class="col-md-4">
+
+                                                <h5 class="text-center"><strong>@Model.Name</strong> Expenses</h5>
+                                                <div id="donut-example" style="height: 250px;"></div>
+
+                                            </div>
+
+                                        </div>
+
+                                    </div>
+                                    <!-- /tile body -->
+
+                                </section>
+                                <!-- /tile -->
+                            </div>
+                        </div>
+
+                        <!-- row -->
+                        <div class="row">
+
+                            @foreach (var member in Model.Members)
+                            {
+                            <!-- col 4 -->
+                                <div class="col-sm-4 sortable">
+
+                                    <!-- tile -->
+                                    <section class="tile color transparent-black textured">
+
+
+                                        <!-- tile header -->
+                                        <div class="tile-header color slategray rounded-top-corners">
+                                            <h1><strong>@member.FirstName</strong> @member.LastName</h1>
+                                            <div class="controls">
+                                                <a href="#" class="minimize"><i class="fa fa-chevron-down"></i></a>
+                                                <a href="#" class="refresh"><i class="fa fa-refresh"></i></a>
+                                                @*<a href="#" class="remove"><i class="fa fa-times"></i></a>*@
+                                            </div>
+                                        </div>
+                                        <!-- /tile header -->
+                                        <!-- tile body -->
+                                        <div class="tile-body">
+
+                                            <p>@member.Email</p>
+
+                                        </div>
+                                        <!-- /tile body -->
+
+
+                                    </section>
+                                    <!-- /tile -->
+
+
+
+                                </div>
+                            <!-- /col 4 -->
+                            }
+
+
+
+                        </div>
+                        <!-- /row -->
+
+
+
+                    </div>
+                    <!-- /content container -->
+                    <!-- row -->
+                    @*<div class="row">
+
+                            <!-- col 12 -->
+                            <div class="col-md-12">
+
+
+
+                                <!-- tile -->
+                                <section id="rootwizard" class="tabbable transparent tile">
+
+
+
+                                    <!-- tile header -->
+                                    <div class="tile-header transparent">
+                                        <h1><strong>Send</strong> An Invitation</h1>
+                                        <div class="controls">
+                                            <a href="#" class="minimize"><i class="fa fa-chevron-down"></i></a>
+                                            <a href="#" class="refresh"><i class="fa fa-refresh"></i></a>
+                                            <a href="#" class="remove"><i class="fa fa-times"></i></a>
+                                        </div>
+                                    </div>
+                                    <!-- /tile header -->
+                                    <!-- tile widget -->
+                                    <div class="tile-widget nopadding color transparent-black rounded-top-corners">
+                                        <ul>
+                                            <li><a href="#tab1" data-toggle="tab">Invitee Email</a></li>
+                                            <li><a href="#tab2" data-toggle="tab">Invitation Code</a></li>
+                                            <li><a href="#tab3" data-toggle="tab">Send</a></li>
+                                        </ul>
+                                    </div>
+                                    <!-- /tile widget -->
+                                    <!-- tile body -->
+                                    <div class="tile-body">
+
+                                        <div id="bar" class="progress progress-striped active">
+                                            <div class="progress-bar progress-bar-cyan animate-progress-bar"></div>
+                                        </div>
+
+                                        <div class="tab-content">
+
+                                            <div class="tab-pane" id="tab1">
+                                                <form class="form-horizontal form1" role="form" parsley-validate>
+
+                                                    <div class="form-group">
+                                                        <label for="fullname" class="col-sm-2 control-label">Email *</label>
+                                                        <div class="col-sm-10">
+                                                            <input type="text" class="form-control" id="fullname" parsley-trigger="change" parsley-required="true" parsley-minlength="4" parsley-validation-minlength="1">
+                                                        </div>
+                                                    </div>
+                                                </form>
+                                            </div>
+
+                                            <div class="tab-pane" id="tab2">
+
+                                                <form class="form-horizontal form2" role="form" parsley-validate id="contact">
+
+                                                    <div class="form-group">
+                                                        <label for="email" class="col-sm-2 control-label">Code *</label>
+                                                        <div class="col-sm-10">
+                                                            <input type="email" class="form-control" id="email" parsley-trigger="change" parsley-required="true" parsley-minlength="4" parsley-type="email" parsley-validation-minlength="1">
+                                                        </div>
+                                                    </div>
+                                                </form>
+
+                                            </div>
+
+                                            <div class="tab-pane" id="tab3">
+
+                                                <form class="form-horizontal form3" role="form" parsley-validate id="eula">
+
+                                                    <div class="form-group">
+                                                        <div class="col-sm-12">
+                                                            <div class="checkbox">
+                                                                <input type="checkbox" value="1" id="opt01" parsley-trigger="change" parsley-required="true" name="eula">
+                                                                <label for="opt01">Send Invitation *</label>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </form>
+
+                                            </div>
+
+                                        </div>
+
+                                    </div>
+                                    <!-- /tile body -->
+                                    <!-- tile footer -->
+                                    <div class="tile-footer border-top color white rounded-bottom-corners nopadding">
+                                        <ul class="pager pager-full wizard">
+                                            <li class="previous"><a href="javascript:;"><i class="fa fa-arrow-left fa-lg"></i></a></li>
+                                            <li class="next"><a href="javascript:;"><i class="fa fa-arrow-right fa-lg"></i></a></li>
+                                            <li class="next finish" style="display:none;"><a href="javascript:;"><i class="fa fa-check fa-lg"></i></a></li>
+                                        </ul>
+                                    </div>
+                                    <!-- /tile footer -->
+
+
+
+
+                                </section>
+                                <!-- /tile -->
+
+
+
+
+                            </div>
+                            <!-- /col 12 -->
+
+
+
+                        </div>*@
+                    <!-- /row -->
+
+
+
+                </div>
+                <!-- Page content end -->
+
+
+
+
+
+
+            </div>
+            <!-- Page content end -->
+
+
+
+
+            <div id="mmenu" class="right-panel">
+                <!-- Nav tabs -->
+                <ul class="nav nav-tabs nav-justified">
+                    <li class="active"><a href="#mmenu-users" data-toggle="tab"><i class="fa fa-users"></i></a></li>
+                </ul>
+
+                <!-- Tab panes -->
+                <div class="tab-content">
+                    <div class="tab-pane active" id="mmenu-users">
+                        <h5><strong>My</strong> Messages</h5>
+
+                        <ul class="users-list">
+
+                            <li class="online">
+                                <div class="media">
+                                    <a class="pull-left profile-photo" href="#">
+                                        <img class="media-object" src="assets/images/ici-avatar.jpg" alt>
+                                    </a>
+                                    <div class="media-body">
+                                        <h6 class="media-heading">House <strong>Member</strong></h6>
+                                        <small><i class="fa fa-clock-o"></i> Created</small>
+                                        <span class="badge badge-outline status"></span>
+                                    </div>
+                                </div>
+                            </li>
+
+                            <li class="online">
+                                <div class="media">
+
+                                    <a class="pull-left profile-photo" href="#">
+                                        <img class="media-object" src="assets/images/arnold-avatar.jpg" alt>
+                                    </a>
+                                    @*<span class="badge badge-red unread">3</span>*@
+
+                                    <div class="media-body">
+                                        <h6 class="media-heading">House <strong>Member</strong></h6>
+                                        <small><i class="fa fa-clock-o"></i> Created</small>
+                                        <span class="badge badge-outline status"></span>
+                                    </div>
+
+                                </div>
+                            </li>
+
+                            <li class="online">
+                                <div class="media">
+                                    <a class="pull-left profile-photo" href="#">
+                                        <img class="media-object" src="assets/images/peter-avatar.jpg" alt>
+
+                                    </a>
+                                    <div class="media-body">
+                                        <h6 class="media-heading">House <strong>Member</strong></h6>
+                                        <small><i class="fa fa-clock-o"></i> Created</small>
+                                        <span class="badge badge-outline status"></span>
+                                    </div>
+                                </div>
+                            </li>
+
+                            <li class="online">
+                                <div class="media">
+                                    <a class="pull-left profile-photo" href="#">
+                                        <img class="media-object" src="assets/images/george-avatar.jpg" alt>
+                                    </a>
+                                    <div class="media-body">
+                                        <h6 class="media-heading">House <strong>Member</strong></h6>
+                                        <small><i class="fa fa-clock-o"></i> Created</small>
+                                        <span class="badge badge-outline status"></span>
+                                    </div>
+                                </div>
+                            </li>
+
+                            <li class="busy">
+                                <div class="media">
+                                    <a class="pull-left profile-photo" href="#">
+                                        <img class="media-object" src="assets/images/random-avatar1.jpg" alt>
+                                    </a>
+                                    <div class="media-body">
+                                        <h6 class="media-heading">House <strong>Member</strong></h6>
+                                        <small><i class="fa fa-clock-o"></i> Created</small>
+                                        <span class="badge badge-outline status"></span>
+                                    </div>
+                                </div>
+                            </li>
+
+                            <li class="busy">
+                                <div class="media">
+                                    <a class="pull-left profile-photo" href="#">
+                                        <img class="media-object" src="assets/images/random-avatar2.jpg" alt>
+                                    </a>
+                                    <div class="media-body">
+                                        <h6 class="media-heading">House <strong>Member</strong></h6>
+                                        <small><i class="fa fa-clock-o"></i> Created</small>
+                                        <span class="badge badge-outline status"></span>
+                                    </div>
+                                </div>
+                            </li>
+
+                        </ul>
+
+                        <h5><strong>Household</strong> Messages</h5>
+
+                        <ul class="users-list">
+
+                            <li class="offline">
+                                <div class="media">
+                                    <a class="pull-left profile-photo" href="#">
+                                        <img class="media-object" src="assets/images/random-avatar4.jpg" alt>
+                                    </a>
+                                    <div class="media-body">
+                                        <h6 class="media-heading">House <strong> Member</strong></h6>
+                                        <small><i class="fa fa-clock-o"></i> Created </small>
+                                        <span class="badge badge-outline status"></span>
+                                    </div>
+                                </div>
+                            </li>
+
+                            <li class="offline">
+                                <div class="media">
+
+                                    <a class="pull-left profile-photo" href="#">
+                                        <img class="media-object" src="assets/images/random-avatar5.jpg" alt>
+                                    </a>
+
+                                    <div class="media-body">
+                                        <h6 class="media-heading">House <strong> Member</strong></h6>
+                                        <small><i class="fa fa-clock-o"></i> Created </small>
+                                        <span class="badge badge-outline status"></span>
+                                    </div>
+
+                                </div>
+                            </li>
+
+                            <li class="offline">
+                                <div class="media">
+                                    <a class="pull-left profile-photo" href="#">
+                                        <img class="media-object" src="assets/images/random-avatar6.jpg" alt>
+
+                                    </a>
+                                    <div class="media-body">
+                                        <h6 class="media-heading">House <strong>Member</strong></h6>
+                                        <small><i class="fa fa-clock-o"></i> Created</small>
+                                        <span class="badge badge-outline status"></span>
+                                    </div>
+                                </div>
+                            </li>
+
+                            <li class="offline">
+                                <div class="media">
+                                    <a class="pull-left profile-photo" href="#">
+                                        <img class="media-object" src="assets/images/random-avatar7.jpg" alt>
+                                    </a>
+                                    <div class="media-body">
+                                        <h6 class="media-heading">House <strong>Member</strong></h6>
+                                        <small><i class="fa fa-clock-o"></i> Created</small>
+                                        <span class="badge badge-outline status"></span>
+                                    </div>
+                                </div>
+                            </li>
+
+                            <li class="offline">
+                                <div class="media">
+                                    <a class="pull-left profile-photo" href="#">
+                                        <img class="media-object" src="assets/images/random-avatar8.jpg" alt>
+                                    </a>
+                                    <div class="media-body">
+                                        <h6 class="media-heading">House <strong>Member</strong></h6>
+                                        <small><i class="fa fa-clock-o"></i> Created</small>
+                                        <span class="badge badge-outline status"></span>
+                                    </div>
+                                </div>
+                            </li>
+
+                        </ul>
+
+                    </div>
+
+                </div><!-- tab-content -->
+            </div>
+
+
+
+
+
+
+        </div>
+        <!-- Make page fluid-->
+        </div>
+        <!-- Wrap all page content end -->
+
+
+
+        <section class="videocontent" id="video"></section>
+
+
+
+        <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+        <script src="https://code.jquery.com/jquery.js"></script>
+        <!-- Include all compiled plugins (below), or include individual files as needed -->
+        <script src="~/assets/js/vendor/bootstrap/bootstrap.min.js"></script>
+        <script src="~/assets/js/vendor/bootstrap/bootstrap-dropdown-multilevel.js"></script>
+        <script src="https://cdn.rawgit.com/google/code-prettify/master/loader/run_prettify.js?lang=css&amp;skin=sons-of-obsidian"></script>
+        <script type="text/javascript" src="~/assets/js/vendor/mmenu/js/jquery.mmenu.min.js"></script>
+        <script type="text/javascript" src="~/assets/js/vendor/sparkline/jquery.sparkline.min.js"></script>
+        <script type="text/javascript" src="~/assets/js/vendor/nicescroll/jquery.nicescroll.min.js"></script>
+        <script type="text/javascript" src="~/assets/js/vendor/animate-numbers/jquery.animateNumbers.js"></script>
+        <script type="text/javascript" src="~/assets/js/vendor/videobackground/jquery.videobackground.js"></script>
+        <script type="text/javascript" src="~/assets/js/vendor/blockui/jquery.blockUI.js"></script>
+
+        <script src="~/assets/js/vendor/rickshaw/raphael-min.js"></script>
+        <script src="~/assets/js/vendor/rickshaw/d3.v2.js"></script>
+        <script src="~/assets/js/vendor/rickshaw/rickshaw.min.js"></script>
+        <script type="text/javascript" src="~/assets/js/vendor/jquery-ui/jquery-ui-1.10.4.custom.min.js"></script>
+        <script src="~/assets/js/vendor/tabdrop/bootstrap-tabdrop.min.js"></script>
+        <script src="~/assets/js/vendor/chosen/chosen.jquery.min.js"></script>
+        <script src="~/assets/js/vendor/parsley/parsley.min.js"></script>
+        <script src="~/assets/js/vendor/morris/morris.min.js"></script>
+
+        <script src="~/assets/js/minimal.min.js"></script>
+
+        <script>
+            $(function () {
+
+                $(".sortable").sortable({
+                    connectWith: ".sortable",
+                    handle: ".tile-header",
+                    placeholder: "tile-placeholder",
+                    start: function () {
+                        $('.sortable .tile').addClass('drag-active');
+                    },
+                    stop: function () {
+                        $('.sortable .tile').removeClass('drag-active');
+                    }
+                }).disableSelection();
+
+
+                // Morris bar chart
+
+                Morris.Bar({
+                    element: 'bar-example',
+                    data: [
+                      { y: 'Housing', a: 75, b: 65 },
+                      { y: 'Utilities', a: 50, b: 40 },
+                      { y: 'Health Care', a: 75, b: 65 },
+                      { y: 'Food & Groceries', a: 100, b: 90 },
+                      { y: 'Personal Care', a: 100, b: 90 },
+                      { y: 'Entertainment', a: 100, b: 90 }
+                    ],
+                    xkey: 'y',
+                    ykeys: ['a', 'b'],
+                    labels: ['Series A', 'Series B'],
+                    barColors: ['#ff4a43', '#1693A5']
+                });
+
+                // Morris donut chart
+
+                Morris.Donut({
+                    element: 'donut-example',
+                    data: [
+                      { label: "Income", value: 30 },
+                      { label: "Expenses", value: 20 }
+                    ],
+                    colors: ['#00a3d8', '#2fbbe8', '#72cae7']
+                });
+            })
+
+        </script>
+    </form>
+</body>
+</html>

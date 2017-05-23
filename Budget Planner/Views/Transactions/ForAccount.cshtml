@@ -1,0 +1,127 @@
+﻿@model Budget_Planner.Models.ViewModels.BankAccountTransactionsVM
+
+@{
+    ViewBag.Title = "For Account";
+}
+
+@section Styles
+{
+    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.9/css/jquery.dataTables.min.css" />
+}
+
+@section ContentHeader {
+    <h1>"@(Model.BankAccounts.Name)" Account Transactions (@Model.BankAccounts.Transactions.Count())</h1>
+}
+
+<div id="AccountBalance_Trans_ForAccount" class="col-lg-2 col-lg-offset-4">
+    Account Balance: @Model.BankAccounts.Balance.ToString("C")
+</div>
+<div id="ReconciledAmount_Trans_ForAccount" class="col-lg-2">
+    Reconciled Amount: @Model.BankAccounts.ReconcileBalance.ToString("C")
+</div>
+
+<div>
+    <a href=@Url.Action("Create", "Transactions", new { id = @Model.BankAccounts.Id }) class="btn btn-sm btn-primary" title='Add Transaction to "@Model.BankAccounts.Name" account'>
+        <i class="fa fa-plus"></i> Add Transaction
+    </a>
+</div>
+
+<table class="table table-striped table-bordered table-responsive">
+    <thead>
+        <tr>
+            <th>
+            </th>
+            <th>
+                Amount
+            </th>
+            <th>
+                Date
+            </th>
+            <th>
+                Type
+            </th>
+            <th>
+                Description
+            </th>
+            <th>
+                Category
+            </th>
+            <th>
+                Reconciled
+            </th>
+            @*<th>
+                Member
+                </th>*@
+            <th>
+                Updated By
+            </th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model.Transactions)
+        {
+            <tr>
+                <td>
+                    <a href=@Url.Action("Edit", "Transactions", new {id = item.Id}) class="btn btn-default" title="Edit this transaction">
+                        <i class="fa fa-edit"></i>
+                    </a>
+                    <a href=@Url.Action("Delete", "Transactions", new { id = item.Id }) class="btn btn-danger" title="Delete this transaction">
+                        <i class="fa fa-trash-o"></i>
+                    </a>
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Amount)
+                </td>
+                <td>
+                    @item.Date.ToLocalTime().ToString("MMM dd, yyyy - hh:mm tt")
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.TransactionType.Name)
+                </td>
+                <td>
+                    @if (item.Notes != null)
+                    {
+                        @Html.DisplayFor(modelItem => item.Notes)
+                    }
+                    else
+                    {
+                        @:(No Description)
+                        }
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Categories.Name)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Reconciled)
+                </td>
+                @*<td>
+                        @Html.DisplayFor(modelItem => item.User.FirstName)
+                        @Html.DisplayFor(modelItem => item.User.LastName)
+                    </td>*@
+                @if (item.UpdatedBy != null)
+                {
+                    <td>
+                        @Html.DisplayFor(modelItem => item.UpdatedBy)
+                    </td>
+                }
+                else
+                {
+                    <td>
+                        -
+                    </td>
+                }
+            </tr>
+        }
+    </tbody>
+</table>
+<a href=@Url.Action("Index", "Accounts") class="btn btn-sm btn-primary" title="Back to All Accounts">
+    <i class="fa fa-angle-double-left"></i> Back to All Accounts
+</a>
+
+@section Scripts {
+    <script type="text/javascript" language="javascript" src="https://cdn.datatables.net/1.10.9/js/jquery.dataTables.min.js"></script>
+    <script>
+        $(".table").DataTable();
+    </script>
+
+}

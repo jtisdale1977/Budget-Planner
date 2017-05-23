@@ -1,0 +1,79 @@
+﻿@model Budget_Planner.Models.ViewModels.JoinHouseholdVM
+
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Budget Planner</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta charset="UTF-8" />
+
+    <link rel="icon" type="image/ico" href="~/assets/images/favicon.ico" />
+    <!-- Bootstrap -->
+    <link href="~/assets/css/vendor/bootstrap/bootstrap.min.css" rel="stylesheet">
+    <link href="http://maxcdn.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="~/assets/css/vendor/bootstrap-checkbox.css">
+    <link rel="stylesheet" href="~/assets/css/vendor/bootstrap/bootstrap-dropdown-multilevel.css">
+
+    <link href="~/assets/css/minimal.css" rel="stylesheet">
+
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+      <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+      <script src="https://oss.maxcdn.com/libs/respond.js/1.3.0/respond.min.js"></script>
+    <![endif]-->
+</head>
+<body class="bg-1">
+    <!-- Wrap all page content here -->
+    <div id="wrap">
+        <!-- Make page fluid -->
+        <div class="row">
+            <!-- Page content -->
+            <div id="content" class="col-md-12 full-page login">
+
+
+                <div class="inside-block">
+                    <img src="~/assets/images/logo-big.png" class="logo">
+                    <h1><strong>@Model.HouseholdToJoinName</strong></h1>
+                    <h4>Would you like to join the household shown above?</h4>
+
+                    @using (Html.BeginForm("JoinHousehold", "Account", FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
+                    {
+                        @Html.AntiForgeryToken()
+                        @Html.HiddenFor(model => model.UserId)
+                        @Html.HiddenFor(model => model.HouseholdToJoinId)
+
+                        <form id="form-signin" class="form-signin">
+                            <section id="loginForm">
+                                <div class="input-group">
+                                </div>
+                            </section>
+                            <section class="log-in">
+                                <input type="submit" class="btn btn-default" value="Join" />
+                                @*<button class="btn btn-greensea">Log In</button>*@
+                                <span>or</span>
+                                <button class="btn btn-slategray" href="@Url.Action("Login", "Account")">Do Not Join</button>
+                            </section>
+                            <br />
+                            <br />
+                            <div class="row">
+                                    <i class="fa fa-warning-sign"></i> * If you are the last remaining member of your current household and you decide to join
+                                    the household that has invited you, your old household account will be deleted. *
+                            </div>
+                        </form>
+                    }
+                </div>
+
+
+            </div>
+            <!-- /Page content -->
+        </div>
+    </div>
+    <!-- Wrap all page content end -->
+
+    @section Scripts {
+        @Scripts.Render("~/bundles/jqueryval")
+    }
+</body>
+</html>
+
